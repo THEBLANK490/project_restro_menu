@@ -1,0 +1,29 @@
+{% extends 'layouts/master.html' %}
+
+{% block title %}
+CUSTOMER | Create
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card p-5 mt-3">
+
+        {% if title %}
+            <h1>{{ title }}</h1>
+            <hr>
+        {% else %}
+        <h1>This is Customer Create page</h1>
+        <hr>
+        {% endif %}
+        <form action="{% url 'customer-create' %}" method="POST">
+            {% csrf_token %}
+            {{customer_create_form.as_p}}
+            <input type="submit" class="btn btn-small btn-primary" value="Add Customer">
+        </form>
+        
+    </div>
+</div>
+
+{% endblock %}
+
+

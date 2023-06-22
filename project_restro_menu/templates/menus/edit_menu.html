@@ -1,0 +1,47 @@
+{% extends 'layouts/master.html' %}
+
+{% block title %}
+Menu | Edit
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card p-5 mt-3">
+        <a href="{% url 'menu-list' %}" class="btn btn-sm btn-primary mb-3 mt-3">Back</a>
+        <h1>Update menu details...</h1>
+        <hr>
+        <form action="{% url 'menu-edit' data.id %}" method="post">
+            {% csrf_token %}
+            <!-- menu title -->
+         <div class="form-group mb-2">
+            <label for="menu_title">Menu Title</label>
+            <input type="text" name="menu_title" value="{{ data.menu_title}}" class="form-control mt-2">
+         </div>
+         <!-- menu price -->
+         <div class="form-group mb-2">
+            <label for="menu_price">Menu Price</label>
+            <input type="number" name="menu_price" value="{{ data.menu_price}}" class="form-control mt-2">
+         </div>
+         <!-- menu Ingredient -->
+         <div class="form-group mb-2">
+            <label for="menu_ingredient">Menu Ingredient</label>
+            <input type="text" name="menu_ingredient" value="{{ data.menu_ingredient}}" class="form-control mt-2">
+         </div>
+         <!-- menu categories -->
+         <div class="form-group">
+            <label for="menu_category">Menu Category</label>
+            <select name="menu_category" class="form-control mt-2" id="">
+                <option value="0">Select Category</option>
+                {% for val in categories %}
+                <option value="{{ val.id }}" class="form-control">
+                    {{ val.category_title }}
+                </option>
+                {% endfor %}
+            </select>
+         </div>
+
+            <input type="submit" value="Update" class="btn btn-primary btn-sm">
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'layouts/master.html' %}
+
+{% block title %}
+CUSTOMER | SHOW
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card p-5 mt-3">
+        <div class="card-header">
+            <h1>Customer List</h1>
+            <hr>
+            <table class="table table-hover-mt-3">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for val in data %}
+                    <tr>
+                        <td>{{ forloop.counter}}</td>
+                        <td>{{ val.customer_name }}</td>
+                        <td>{{ val.customer_email }}</td>
+                        <td>{{ val.customer_address }}</td>
+                        <td>{{ val.customer_contact }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+    </div>
+</div>
+{% endblock %}
+
