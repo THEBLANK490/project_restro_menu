@@ -2,13 +2,23 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.views import View
-from django.contrib import auth
+from django.contrib import auth, messages
+from app_menus.models import Menu
+from django.db.models import Count
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+# @login_required(login_url='/login/')
+class DashboardView(View):
+    def get(self,request):
+        menu_total = Menu.objects.aggregate(Count('id'))
+        context ={"menu_total":menu_total.get('id__count')}
+        return render(request,'dashboard.html',context)
 
 class LogoutView(View):
     def get(self,request):
         logout(request)
+        messages.success(request, "You're logged out...")
         return redirect('login')
 
 class LoginView(View):
@@ -22,12 +32,13 @@ class LoginView(View):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                messages.success(request,'You are logged in...')
                 return redirect('menu-list')
+            messages.error(request,"Login Failed.")
             return redirect('login')
 
         except User.DoesNotExist as error:
             print(error)
-      
 
 class RegisterView(View):
     def get(self,request):
