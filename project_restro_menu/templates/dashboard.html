@@ -1,42 +1,42 @@
 {% extends 'layouts/master.html' %}
 
+{% load static %}
+
 {% block title %}
 
 {% endblock %}
 {% block custom_css %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-    .count {
-        position: relative;
-        z-index: 1;
-        font-size: 35px;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="card p-5 m-3">
         <h1>Dashboard</h1>
+        <button id="btn" onclick="changeText()">Click Me</button>
         <hr>
         <div class="d-flex flex-row justify-content-between">
             <div class="card p-3 w-25">
                 <h1><i class="fa-solid fa-person fa-2xs"></i> Customers</h1>      
-                <a href="{% url 'customer-show' %}">View All</a>
+                <a href="{% url 'customer-show' %}" class="anchor" id="anchor">View All</a>
                 <span class="count">15</span>
             </div>
             <div class="card p-3 w-25">
                 <h1> <i class="fa-solid fa-bars fa-2xs"></i> Menu</h1>
-                <a href="{% url 'menu-list' %}">View All</a>
+                <a href="{% url 'menu-list' %}" class="anchor" id="anchor">View All</a>
                 <span class="count">{{ menu_total }}</span>
             </div>
             <div class="card p-3 w-25">
                 <h1><i class="fa-solid fa-file-invoice fa-2xs"></i> Accounts</h1>
-                <a href="{% url 'menu-list' %}">View All</a>
+                <a href="{% url 'menu-list' %}" class="anchor" id="anchor">View All</a>
                 <span class="count">15</span>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block custom_js %}
+<script src="{% static 'js/script.js' %}"></script>
 {% endblock %}

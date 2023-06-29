@@ -1,15 +1,17 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login,logout,authenticate
 from django.views import View
 from django.contrib import auth, messages
-from app_menus.models import Menu
 from django.db.models import Count
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
+from app_menus.models import Menu
 
 # Create your views here.
-# @login_required(login_url='/login/')
-class DashboardView(View):
+
+class DashboardView(LoginRequiredMixin,View):
+    login_url = '/login/' 
     def get(self,request):
         menu_total = Menu.objects.aggregate(Count('id'))
         context ={"menu_total":menu_total.get('id__count')}
