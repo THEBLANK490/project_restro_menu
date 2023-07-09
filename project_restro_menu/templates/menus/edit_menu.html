@@ -10,7 +10,7 @@ Menu | Edit
         <a href="{% url 'menu-list' %}" class="btn btn-sm btn-primary mb-3 mt-3">Back</a>
         <h1>Update menu details...</h1>
         <hr>
-        <form action="{% url 'menu-edit' data.id %}" method="post">
+        <form action="{% url 'menu-edit' data.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <!-- menu title -->
          <div class="form-group mb-2">
@@ -39,7 +39,9 @@ Menu | Edit
                 {% endfor %}
             </select>
          </div>
-
+          <div class="form-group mb-2">
+            <input type="file" name="menu_img" class="form-control mb-2 mt-2">
+        </div>
             <input type="submit" value="Update" class="btn btn-primary btn-sm">
         </form>
     </div>

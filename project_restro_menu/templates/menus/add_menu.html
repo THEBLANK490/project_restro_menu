@@ -15,7 +15,7 @@ MENU | List
         <h1>This is Add Menu page</h1>
         <hr>
         {% endif %}
-        <form action="{% url 'menu-add' %}" method="POST">
+        <form action="{% url 'menu-add' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{menu_create_form.as_p}}
             <input type="submit" class="btn btn-small btn-primary" value="Add Menu">

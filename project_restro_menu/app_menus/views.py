@@ -30,7 +30,7 @@ def edit_menu(request, id):
     context = {'data':menu_obj,'categories':Category_obj}
 
     if request.method == 'POST':
-        menu_obj = MenuCreateForm(data=request.POST, instance=menu_obj)
+        menu_obj = MenuCreateForm(data=request.POST, instance=menu_obj, files=request.FILES)
         if menu_obj.is_valid():
             menu_obj.save()
             return redirect("menu-edit", id) #redirecting to url having id
@@ -51,6 +51,7 @@ def add_menu(request):
         menu_title = request.POST.get('menu_title')
         menu_price = request.POST.get('menu_price')
         menu_ingredient = request.POST.get('menu_ingredient')
+        # menu_img = request.FILES.get('menu_img')
         category_obj = Category.objects.get(id=request.POST.get('menu_category'))
 
         # method one
@@ -66,7 +67,7 @@ def add_menu(request):
         # menu.save()
 
         # method three - storing data with Form Class Object
-        menu = MenuCreateForm(request.POST)
+        menu = MenuCreateForm(request.POST,request.FILES)
         if menu.is_valid():
             menu.menu_category = category_obj
             menu.save()
